@@ -1,0 +1,22 @@
+name: Docker
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-publish-latest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        name: Check out code
+      - uses: mr-smithers-excellent/docker-build-push@v5
+        name: docker build and push
+        with:
+          addLatest: True
+          image: mccqrnn_docker
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
